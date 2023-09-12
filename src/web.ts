@@ -6,8 +6,7 @@ export class KeyguardManagerPluginWeb
   extends WebPlugin
   implements KeyguardManagerPluginPlugin
 {
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
-    return options;
+  async isDeviceSecure(): Promise<{ value: boolean }> {
+    return { value: false };
   }
 }

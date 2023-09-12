@@ -1,5 +1,9 @@
 package com.waltercruz.keyguardmanager.capacitor;
 
+import android.app.KeyguardManager;
+import android.content.Context;
+import android.util.Log;
+
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
@@ -12,11 +16,13 @@ public class KeyguardManagerPluginPlugin extends Plugin {
     private KeyguardManagerPlugin implementation = new KeyguardManagerPlugin();
 
     @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
-
+    public void isDeviceSecure(PluginCall call) {
+        Context myContext = this.getActivity().getApplicationContext();
+        KeyguardManager keyguardManager = (KeyguardManager)myContext.getSystemService(Context.KEYGUARD_SERVICE);
+        System.out.println("checking if android device is secure");
+        System.out.println(keyguardManager.isDeviceSecure());
         JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
-        call.resolve(ret);
-    }
+        ret.put("value", keyguardManager.isDeviceSecure());
+        call.success(ret);
+    }    
 }
